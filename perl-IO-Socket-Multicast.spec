@@ -4,16 +4,15 @@
 #
 Name     : perl-IO-Socket-Multicast
 Version  : 1.12
-Release  : 1
+Release  : 2
 URL      : https://cpan.metacpan.org/authors/id/B/BR/BRAMBLE/IO-Socket-Multicast-1.12.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/B/BR/BRAMBLE/IO-Socket-Multicast-1.12.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libi/libio-socket-multicast-perl/libio-socket-multicast-perl_1.12-2.debian.tar.xz
 Summary  : Send and receive multicast messages
 Group    : Development/Tools
 License  : Artistic-1.0-Perl
-Requires: perl-IO-Socket-Multicast-lib
-Requires: perl-IO-Socket-Multicast-man
-Requires: perl(IO::Interface)
+Requires: perl-IO-Socket-Multicast-lib = %{version}-%{release}
+BuildRequires : buildreq-cpan
 BuildRequires : perl(IO::Interface)
 
 %description
@@ -21,6 +20,16 @@ NAME
 IO::Socket::Multicast - Send and receive multicast messages
 SYNOPSIS
 use IO::Socket::Multicast;
+
+%package dev
+Summary: dev components for the perl-IO-Socket-Multicast package.
+Group: Development
+Requires: perl-IO-Socket-Multicast-lib = %{version}-%{release}
+Provides: perl-IO-Socket-Multicast-devel = %{version}-%{release}
+
+%description dev
+dev components for the perl-IO-Socket-Multicast package.
+
 
 %package lib
 Summary: lib components for the perl-IO-Socket-Multicast package.
@@ -30,19 +39,11 @@ Group: Libraries
 lib components for the perl-IO-Socket-Multicast package.
 
 
-%package man
-Summary: man components for the perl-IO-Socket-Multicast package.
-Group: Default
-
-%description man
-man components for the perl-IO-Socket-Multicast package.
-
-
 %prep
-tar -xf %{SOURCE1}
-cd ..
 %setup -q -n IO-Socket-Multicast-1.12
-mkdir -p %{_topdir}/BUILD/IO-Socket-Multicast-1.12/deblicense/
+cd ..
+%setup -q -T -D -n IO-Socket-Multicast-1.12 -b 1
+mkdir -p deblicense/
 mv %{_topdir}/BUILD/debian/* %{_topdir}/BUILD/IO-Socket-Multicast-1.12/deblicense/
 
 %build
@@ -68,9 +69,9 @@ make TEST_VERBOSE=1 test
 %install
 rm -rf %{buildroot}
 if test -f Makefile.PL; then
-make pure_install PERL_INSTALL_ROOT=%{buildroot}
+make pure_install PERL_INSTALL_ROOT=%{buildroot} INSTALLDIRS=vendor
 else
-./Build install --installdirs=site --destdir=%{buildroot}
+./Build install --installdirs=vendor --destdir=%{buildroot}
 fi
 find %{buildroot} -type f -name .packlist -exec rm -f {} ';'
 find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null ';'
@@ -79,12 +80,12 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/site_perl/5.26.1/x86_64-linux-thread-multi/IO/Socket/Multicast.pm
+/usr/lib/perl5/vendor_perl/5.26.1/x86_64-linux-thread-multi/IO/Socket/Multicast.pm
+
+%files dev
+%defattr(-,root,root,-)
+/usr/share/man/man3/IO::Socket::Multicast.3
 
 %files lib
 %defattr(-,root,root,-)
-/usr/lib/perl5/site_perl/5.26.1/x86_64-linux-thread-multi/auto/IO/Socket/Multicast/Multicast.so
-
-%files man
-%defattr(-,root,root,-)
-/usr/share/man/man3/IO::Socket::Multicast.3
+/usr/lib/perl5/vendor_perl/5.26.1/x86_64-linux-thread-multi/auto/IO/Socket/Multicast/Multicast.so
