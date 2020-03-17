@@ -4,7 +4,7 @@
 #
 Name     : perl-IO-Socket-Multicast
 Version  : 1.12
-Release  : 11
+Release  : 12
 URL      : https://cpan.metacpan.org/authors/id/B/BR/BRAMBLE/IO-Socket-Multicast-1.12.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/B/BR/BRAMBLE/IO-Socket-Multicast-1.12.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libi/libio-socket-multicast-perl/libio-socket-multicast-perl_1.12-2.debian.tar.xz
@@ -80,7 +80,7 @@ make TEST_VERBOSE=1 test
 %install
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/perl-IO-Socket-Multicast
-cp %{_builddir}/IO-Socket-Multicast-1.12/deblicense/copyright %{buildroot}/usr/share/package-licenses/perl-IO-Socket-Multicast/325afad45103e6403b0eb69e4e5ac2a69291dbd7
+cp %{_builddir}/debian/copyright %{buildroot}/usr/share/package-licenses/perl-IO-Socket-Multicast/325afad45103e6403b0eb69e4e5ac2a69291dbd7
 if test -f Makefile.PL; then
 make pure_install PERL_INSTALL_ROOT=%{buildroot} INSTALLDIRS=vendor
 else
@@ -104,5 +104,5 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files perl
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.30.1/x86_64-linux-thread-multi/IO/Socket/Multicast.pm
-/usr/lib/perl5/vendor_perl/5.30.1/x86_64-linux-thread-multi/auto/IO/Socket/Multicast/Multicast.so
+/usr/lib/perl5/vendor_perl/5.30.2/x86_64-linux-thread-multi/IO/Socket/Multicast.pm
+/usr/lib/perl5/vendor_perl/5.30.2/x86_64-linux-thread-multi/auto/IO/Socket/Multicast/Multicast.so
