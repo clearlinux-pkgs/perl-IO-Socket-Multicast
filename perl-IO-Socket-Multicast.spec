@@ -7,7 +7,7 @@
 #
 Name     : perl-IO-Socket-Multicast
 Version  : 1.12
-Release  : 29
+Release  : 30
 URL      : https://cpan.metacpan.org/authors/id/B/BR/BRAMBLE/IO-Socket-Multicast-1.12.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/B/BR/BRAMBLE/IO-Socket-Multicast-1.12.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libi/libio-socket-multicast-perl/libio-socket-multicast-perl_1.12-2.debian.tar.xz
